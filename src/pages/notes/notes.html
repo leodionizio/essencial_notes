@@ -1,40 +1,40 @@
 <ion-header>
-    <ion-navbar color="primary" padding>
-      <ion-buttons start>
-        <button ion-button icon-only (click)="voltarInicio()">
-          <ion-icon name="arrow-back"></ion-icon>
-        </button>
-      </ion-buttons>
-      <ion-buttons end>
-        <button ion-button icon-only (click)="deletarNota()">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-        <!-- &emsp;
-         <button ion-button icon-only>
-          <ion-icon name="color-palette"></ion-icon>
-        </button> -->
-      </ion-buttons>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content>
-    <form (ngSubmit)="salvarNota()" [formGroup]="form">
-      
-      <ion-list padding>
-  
-        <ion-item>
-          <ion-input type="text" placeholder="Título" formControlName="title"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-textarea type="text" placeholder="Nota" rows="15" formControlName="content"></ion-textarea>
-        </ion-item>
-  
-      </ion-list>
-  
-      <button type="submit" ion-button icon-only full style="position: absolute; bottom: 0">
-        <ion-icon name="checkmark"></ion-icon>
+  <ion-navbar [color]="colorNote" padding>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="voltarInicio()">
+        <ion-icon name="arrow-back"></ion-icon>
       </button>
-    </form>
-  
-  </ion-content>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="deletarNota()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      &emsp;
+      <button ion-button icon-only (click)="selectColor()">
+        <ion-icon name="color-palette"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="salvarNota()" [formGroup]="form">
+
+    <ion-list padding>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Título" formControlName="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea type="text" placeholder="Nota" rows="20" max-length="10" formControlName="content"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+
+    <button type="submit" ion-button icon-only full style="position: fixed; bottom: 0; padding: 0; margin: 0; border: none">
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </form>
+
+</ion-content>

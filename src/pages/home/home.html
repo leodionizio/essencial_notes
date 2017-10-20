@@ -4,21 +4,21 @@
       Essencial Notes
     </ion-title>
 
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="more"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  
+
   <!-- BOTÃO INSERIR NOVA NOTA -->
   <button ion-button icon-only (click)="viewNote()" class="btn-new" round>
     <ion-icon name="add"></ion-icon>
   </button>
-  
+
   <!-- NOTAS -->
   <div text-center>
     <p *ngIf="notes && notes.length === 0; else notesList">Nenhuma nota ainda.</p>

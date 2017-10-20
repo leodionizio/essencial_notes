@@ -22,12 +22,6 @@ export class HomePage {
   }
 
   private getNotes(): void {
-    // this.notes.push({id: 1, title: 'Anotação', content: 'Alguma coisa qualquer'});
-    // this.notes.push({id: 2, title: 'Anotação2', content: 'Alguma coisa qualquer'});
-    // this.notes.push({id: 3, title: 'Anotação3', content: 'Alguma coisa qualquer'});
-    // this.notes.push({id: 4, title: 'Anotação4', content: 'Alguma coisa qualquer'});
-    
-
     this.notesService.getAll()
       .then((notes: NotesModel[]) => {
         notes.forEach(element => {

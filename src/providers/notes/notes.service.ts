@@ -26,7 +26,10 @@ export class NotesService {
           (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT,
-            content TEXT
+            content TEXT,
+            color TEXT,
+            date_created TEXT,
+            date_edited TEXT
           )
           `, {})
             .then((success) => {
@@ -46,9 +49,15 @@ export class NotesService {
       .then((db: SQLiteObject) => {
 
         return <Promise<NotesModel[]>>this.db.executeSql(`
-          SELECT id, title, content
+          SELECT 
+          id,
+          title,
+          content,
+          color,
+          date_created,
+          date_edited
           FROM notes
-          ORDER BY id ${orderBy || 'DESC'}
+          ORDER BY date_edited ${orderBy || 'DESC'}
         `, {})
           .then((resultSet) => {
             let list: NotesModel[] = [];
@@ -84,10 +93,13 @@ export class NotesService {
   public create(note: NotesModel): Promise<NotesModel> {
     return this.db.executeSql(`
         INSERT INTO notes
-        (title, content) VALUES (?,?)
+        (title, content, color, date_created, date_edited) VALUES (?,?,?,?,?)
       `, [
         note.title,
-        note.content
+        note.content,
+        note.color,
+        note.date_created,
+        note.date_edited
       ])
       .then(resultSet => {
         note.id = resultSet.insertId;
@@ -101,11 +113,13 @@ export class NotesService {
 
   public update(note: NotesModel): Promise<boolean> {
     return this.db.executeSql(`
-      UPDATE notes SET title = ?, content = ?
+      UPDATE notes SET title = ?, content = ?, color = ?, date_edited = ?
       WHERE id=?
       `   , [
         note.title,
         note.content,
+        note.color,
+        note.date_edited,
         note.id
       ])
       .then(resultSet => resultSet.rowsAffected >= 0)
@@ -127,7 +141,7 @@ export class NotesService {
 
   public getById(id: number): Promise<NotesModel> {
     return this.db.executeSql(`
-      SELECT id, title, content FROM notes WHERE id=?
+      SELECT id, title, content, color, date_created, date_edited FROM notes WHERE id=?
     `, [
         id
       ])

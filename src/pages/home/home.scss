@@ -16,4 +16,11 @@ page-home {
     p{
         color: darkgray;        
     }
+    .circle{
+        border-radius:100%;
+        border:10px solid red;
+        width:100px;
+        height:100px;
+        background-color:purple;
+    }
 }
