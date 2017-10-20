@@ -1,7 +1,7 @@
 {
     "name": "essencial-notes",
-    "version": "0.0.1",
-    "author": "Ionic Framework",
+    "version": "1.0.0",
+    "author": "Leonardo Dionizio",
     "homepage": "http://ionicframework.com/",
     "private": true,
     "scripts": {
