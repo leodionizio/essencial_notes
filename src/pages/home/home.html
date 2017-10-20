@@ -1,14 +1,36 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      Ionic Blank
+      Essencial Notes
     </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="orderBy()">
+        <ion-icon name="list"></ion-icon>
+      </button>&emsp;
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  
+  <!-- BOTÃO INSERIR NOVA NOTA -->
+  <button ion-button icon-only (click)="viewNote()" class="btn-new" round>
+    <ion-icon name="add"></ion-icon>
+  </button>
+  
+  <!-- NOTAS -->
+  <div text-center>
+    <p *ngIf="notes && notes.length === 0; else notesList">Nenhuma anotação.</p>
+  </div>
+
+  <ng-template #notesList>
+    <ion-list>
+      <div *ngFor="let note of notes">
+        <ion-item (click)="viewNote(note)" class="item-home">
+          <h2>{{ note.title }}</h2>
+        </ion-item>
+      </div>
+    </ion-list>
+  </ng-template>
 </ion-content>
