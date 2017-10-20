@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="primary" padding>
     <ion-title>
       Essencial Notes
     </ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="orderBy()">
-        <ion-icon name="list"></ion-icon>
-      </button>&emsp;
+      <button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -21,7 +21,7 @@
   
   <!-- NOTAS -->
   <div text-center>
-    <p *ngIf="notes && notes.length === 0; else notesList">Nenhuma anotação.</p>
+    <p *ngIf="notes && notes.length === 0; else notesList">Nenhuma nota ainda.</p>
   </div>
 
   <ng-template #notesList>
