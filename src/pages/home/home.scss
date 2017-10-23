@@ -13,14 +13,10 @@ page-home {
             background-color: #f8f8f8;
         }
     }
-    p{
-        color: darkgray;        
+    .clip-note{
+        font-size: 40px;
     }
-    .circle{
-        border-radius:100%;
-        border:10px solid red;
-        width:100px;
-        height:100px;
-        background-color:purple;
+    ion-navbar{
+        height: 65px;
     }
 }

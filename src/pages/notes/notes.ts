@@ -15,8 +15,12 @@ export class NotesPage {
   public notes: NotesModel[];
   public colorNote: string = 'primary';
   private colors: [{ value: string, label: string }] = [
+    { value: 'warning', label: 'Amarelo' },
     { value: 'secondary', label: 'Azul' },
     { value: 'dark', label: 'Cinza' },
+    { value: 'brown', label: 'Marrom' },
+    { value: 'pink', label: 'Rosa' },
+    { value: 'purple', label: 'Roxo' },
     { value: 'success', label: 'Verde' },
     { value: 'danger', label: 'Vermelho' }
   ]
@@ -48,108 +52,108 @@ export class NotesPage {
       this.note.color ? this.colorNote = this.note.color : this.colorNote = 'primary'
       this.form.patchValue(this.note);
     }
-}
+  }
 
-ionViewDidLoad() { }
+  ionViewDidLoad() { }
 
   //mostrar radio colors
   public selectColor() {
-  let alert = this.alertCtrl.create();
-  alert.setTitle('Cor da Nota');
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Cor da Nota');
 
-  this.colors.forEach(element => {
-    alert.addInput({
-      type: 'radio',
-      label: element.label,
-      value: element.value,
-      checked: false
+    this.colors.forEach(element => {
+      alert.addInput({
+        type: 'radio',
+        label: element.label,
+        value: element.value,
+        checked: false
+      });
     });
-  });
 
 
-  alert.addButton('Cancel');
-  alert.addButton({
-    text: 'OK',
-    handler: data => {
-      this.colorNote = data;
-      this.form.patchValue({ color: data });
-    }
-  });
-  alert.present();
-}
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        this.colorNote = data;
+        this.form.patchValue({ color: data });
+      }
+    });
+    alert.present();
+  }
 
   // toast message
   public presentToast(message: string): void {
-  let toast = this.toastCtrl.create({
-    message: message,
-    position: 'bottom',
-    dismissOnPageChange: true,
-    duration: 3000
-  });
-  toast.present();
-}
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      dismissOnPageChange: true,
+      duration: 3000
+    });
+    toast.present();
+  }
 
   // exibir loading
   public presentLoading(message: string): void {
-  this.loading = this.loadingCtrl.create({
-    content: message
-  });
-  this.loading.present();
-}
+    this.loading = this.loadingCtrl.create({
+      content: message
+    });
+    this.loading.present();
+  }
 
   public voltarInicio(): void {
-  this.navCtrl.setRoot('HomePage');
-}
+    this.navCtrl.setRoot('HomePage');
+  }
 
   public salvarNota(): void {
-  this.presentLoading('Salvando Nota...');
-  if(!this.form.valid) {
-  this.loading.dismiss();
-  this.presentToast('Digite um título para a nota');
-} else {
-  if (!this.form.value.date_created) {
-    this.form.patchValue({ date_created: this.date });
-  }
-  if (!this.form.value.color) {
-    this.form.patchValue({ color: 'dark' });
-  }
-  this.form.patchValue({ date_edited: this.date });
-  this.note = new NotesModel(
-    this.form.value.id,
-    this.form.value.title,
-    this.form.value.content,
-    this.form.value.color,
-    this.form.value.date_created,
-    this.form.value.date_edited,
-  );
-  this.notesService.onSave(this.note)
-    .then((result: any) => {
+    this.presentLoading('Salvando Nota...');
+    if (!this.form.valid) {
       this.loading.dismiss();
-      this.navCtrl.setRoot('HomePage');
-    })
-    .catch((error: Error) => {
-      this.loading.dismiss();
-      this.presentToast('Falha ao criar a nota')
-    })
-}
+      this.presentToast('Digite um título para a nota');
+    } else {
+      if (!this.form.value.date_created) {
+        this.form.patchValue({ date_created: this.date });
+      }
+      if (!this.form.value.color) {
+        this.form.patchValue({ color: 'dark' });
+      }
+      this.form.patchValue({ date_edited: this.date });
+      this.note = new NotesModel(
+        this.form.value.id,
+        this.form.value.title,
+        this.form.value.content,
+        this.form.value.color,
+        this.form.value.date_created,
+        this.form.value.date_edited,
+      );
+      this.notesService.onSave(this.note)
+        .then((result: any) => {
+          this.loading.dismiss();
+          this.navCtrl.setRoot('HomePage');
+        })
+        .catch((error: Error) => {
+          this.loading.dismiss();
+          this.presentToast('Falha ao criar a nota')
+        })
+    }
   }
 
   public deletarNota(): void {
-  this.presentLoading('Deletando Nota...');
-  if(this.form.value.id) {
-    this.notesService.delete(this.note.id)
-      .then((result: any) => {
-        this.loading.dismiss();
-        this.navCtrl.setRoot('HomePage');
-      })
-      .catch((error: Error) => {
-        this.loading.dismiss();
-        this.presentToast('Falha ao deletar a nota')
-      })
-  } else {
-    this.loading.dismiss();
-    this.navCtrl.setRoot('HomePage');
+    this.presentLoading('Deletando Nota...');
+    if (this.form.value.id) {
+      this.notesService.delete(this.note.id)
+        .then((result: any) => {
+          this.loading.dismiss();
+          this.navCtrl.setRoot('HomePage');
+        })
+        .catch((error: Error) => {
+          this.loading.dismiss();
+          this.presentToast('Falha ao deletar a nota')
+        })
+    } else {
+      this.loading.dismiss();
+      this.navCtrl.setRoot('HomePage');
+    }
   }
-}
 
 }

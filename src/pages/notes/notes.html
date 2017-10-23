@@ -23,16 +23,16 @@
     <ion-list padding>
 
       <ion-item>
-        <ion-input type="text" placeholder="Título" formControlName="title"></ion-input>
+        <ion-input type="text" placeholder="Título" maxlength="35" formControlName="title"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-textarea type="text" placeholder="Nota" rows="20" max-length="10" formControlName="content"></ion-textarea>
+        <ion-textarea type="text" placeholder="Nota" rows="20" maxlength="600" formControlName="content"></ion-textarea>
       </ion-item>
 
     </ion-list>
 
-    <button type="submit" ion-button icon-only full style="position: fixed; bottom: 0; padding: 0; margin: 0; border: none">
+    <button type="submit" [color]="colorNote" ion-button icon-only full style="position: fixed; bottom: 0; padding: 0; margin: 0; border: none">
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </form>

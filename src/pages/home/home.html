@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary" padding>
-    <ion-title>
-      Essencial Notes
+    <ion-title padding-top>
+      <h1>Essencial Notes</h1>
     </ion-title>
 
     <!-- <ion-buttons end>
@@ -12,7 +12,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content >
 
   <!-- BOTÃO INSERIR NOVA NOTA -->
   <button ion-button icon-only (click)="viewNote()" class="btn-new" round>
@@ -20,16 +20,18 @@
   </button>
 
   <!-- NOTAS -->
-  <div text-center>
-    <p *ngIf="notes && notes.length === 0; else notesList">Nenhuma nota ainda.</p>
+  <div text-center padding style="color: #808080">
+    <h5 *ngIf="notes && notes.length === 0; else notesList">Nenhuma nota ainda.</h5>
   </div>
 
   <ng-template #notesList>
     <ion-list>
       <div *ngFor="let note of notes">
         <ion-item (click)="viewNote(note)" class="item-home">
-          <h2>{{ note.title }}</h2>
+          <ion-icon name="md-document" [color]="note.color" item-start class="clip-note"></ion-icon>
+          <h2 padding-left>{{ note.title }}</h2>
         </ion-item>
+
       </div>
     </ion-list>
   </ng-template>
