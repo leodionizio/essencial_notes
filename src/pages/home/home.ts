@@ -18,6 +18,10 @@ export class HomePage {
   ) { }
 
   ionViewDidLoad() {
+  }
+
+  ionViewWillEnter() {
+    this.notes = [];
     this.getNotes();
   }
 
@@ -40,9 +44,9 @@ export class HomePage {
 
   public viewNote(note?: NotesModel): void {
     if (!note) {
-      this.navCtrl.setRoot('NotesPage');
+      this.navCtrl.push('NotesPage');
     } else {
-      this.navCtrl.setRoot('NotesPage', { note });
+      this.navCtrl.push('NotesPage', { note });
     }
   }
 }

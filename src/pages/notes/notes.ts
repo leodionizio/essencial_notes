@@ -101,10 +101,6 @@ export class NotesPage {
     this.loading.present();
   }
 
-  public voltarInicio(): void {
-    this.navCtrl.setRoot('HomePage');
-  }
-
   public salvarNota(): void {
     this.presentLoading('Salvando Nota...');
     if (!this.form.valid) {
@@ -129,7 +125,7 @@ export class NotesPage {
       this.notesService.onSave(this.note)
         .then((result: any) => {
           this.loading.dismiss();
-          this.navCtrl.setRoot('HomePage');
+          this.navCtrl.pop();
         })
         .catch((error: Error) => {
           this.loading.dismiss();
@@ -144,7 +140,7 @@ export class NotesPage {
       this.notesService.delete(this.note.id)
         .then((result: any) => {
           this.loading.dismiss();
-          this.navCtrl.setRoot('HomePage');
+          this.navCtrl.pop();
         })
         .catch((error: Error) => {
           this.loading.dismiss();
@@ -152,7 +148,7 @@ export class NotesPage {
         })
     } else {
       this.loading.dismiss();
-      this.navCtrl.setRoot('HomePage');
+      this.navCtrl.pop();
     }
   }
 
