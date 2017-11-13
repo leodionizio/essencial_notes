@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="br.com.leonardodionizio.essencialnotes" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="br.com.leonardodionizio.essencialnotes" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Essencial Notes</name>
-    <description>Aplicativo apra suas anotações essenciais.</description>
+    <description>Aplicativo para suas anotações essenciais.</description>
     <author email="leodionizio13@gmail.com">Leonardo Dionizio</author>
     <content src="index.html" />
     <access origin="*" />

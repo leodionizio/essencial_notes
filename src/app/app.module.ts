@@ -16,7 +16,8 @@ import { SqliteConnService } from '../providers/sqlite-conn/sqlite-conn.service'
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {
-      mode: 'ios'
+      mode: 'ios',
+      backButtonText: ''
     })
   ],
   bootstrap: [IonicApp],

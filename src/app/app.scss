@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +12,28 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+%input-property {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #999;
+    padding: 10px;
+    color: #444;
+    &:focus {
+        border-color: map-get($colors, dark)
+    }
+    &::placeholder {
+        color: #999;
+    }
+}
+
+input {
+    @extend %input-property;
+    font-size: 1.5em;
+}
+
+textarea {
+    @extend %input-property;
+    margin-top: 5px;
+    font-size: 1.3em;
+}
