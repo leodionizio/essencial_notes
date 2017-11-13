@@ -25,11 +25,12 @@ export class NotesService {
           CREATE TABLE IF NOT EXISTS notes
           (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            key TEXT,
             title TEXT,
             content TEXT,
             color TEXT,
-            date_created TEXT,
-            date_edited TEXT
+            date_created DATE,
+            date_edited DATE
           )
           `, {})
             .then((success) => {
@@ -51,6 +52,7 @@ export class NotesService {
         return <Promise<NotesModel[]>>this.db.executeSql(`
           SELECT 
           id,
+          key,
           title,
           content,
           color,
@@ -93,8 +95,9 @@ export class NotesService {
   public create(note: NotesModel): Promise<NotesModel> {
     return this.db.executeSql(`
         INSERT INTO notes
-        (title, content, color, date_created, date_edited) VALUES (?,?,?,?,?)
+        (key, title, content, color, date_created, date_edited) VALUES (?,?,?,?,?,?)
       `, [
+        note.key,
         note.title,
         note.content,
         note.color,
@@ -113,9 +116,10 @@ export class NotesService {
 
   public update(note: NotesModel): Promise<boolean> {
     return this.db.executeSql(`
-      UPDATE notes SET title = ?, content = ?, color = ?, date_edited = ?
+      UPDATE notes SET key = ?, title = ?, content = ?, color = ?, date_edited = ?
       WHERE id=?
       `   , [
+        note.key,
         note.title,
         note.content,
         note.color,
@@ -141,7 +145,7 @@ export class NotesService {
 
   public getById(id: number): Promise<NotesModel> {
     return this.db.executeSql(`
-      SELECT id, title, content, color, date_created, date_edited FROM notes WHERE id=?
+      SELECT id, key, title, content, color, date_created, date_edited FROM notes WHERE id=?
     `, [
         id
       ])
