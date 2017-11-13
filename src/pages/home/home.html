@@ -20,18 +20,20 @@
   </button>
 
   <!-- NOTAS -->
-  <div text-center padding style="color: #808080">
-    <p *ngIf="notes && notes.length === 0; else notesList">Nenhuma nota ainda.</p>
+  <div *ngIf="notes && notes.length === 0; else notesList" text-center style="color: #929292">
+    <br>
+    <h6>Nenhuma nota ainda.</h6>
   </div>
 
-  <ng-template #notesList>
+  <ng-template #notesList id="notesList">
     <ion-list>
       <div *ngFor="let note of notes">
-        <ion-item (click)="viewNote(note)" class="item-home">
-          <ion-icon name="md-document" [color]="note.color" item-start class="clip-note"></ion-icon>
+        <button (click)="viewNote(note)" class="item-home" ion-item no-lines full>
+          <button ion-button item-start [color]="note.color">
+            <h1>{{ note.key }}</h1>
+          </button>
           <h2 padding-left>{{ note.title }}</h2>
-        </ion-item>
-
+        </button>
       </div>
     </ion-list>
   </ng-template>
