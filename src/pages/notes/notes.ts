@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NotesModel } from '../../models/notes.model';
@@ -14,7 +14,7 @@ export class NotesPage {
   public note: NotesModel;
   public notes: NotesModel[];
   public colorNote: string = 'primary';
-  private colors: [{ value: string, label: string }] = [
+  public colors: [{ value: string, label: string }] = [
     { value: 'warning', label: 'Amarelo' },
     { value: 'secondary', label: 'Azul' },
     { value: 'dark', label: 'Cinza' },
@@ -24,6 +24,7 @@ export class NotesPage {
     { value: 'success', label: 'Verde' },
     { value: 'danger', label: 'Vermelho' }
   ]
+  public modalColor: boolean = false;
 
   private form: FormGroup;
   private loading: any;
@@ -34,13 +35,13 @@ export class NotesPage {
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController,
     public notesService: NotesService,
     public formBuilder: FormBuilder
   ) {
     this.date = new Date();
     this.form = this.formBuilder.group({
       id: [''],
+      key: [''],
       title: ['', [Validators.required]],
       content: [''],
       color: [''],
@@ -57,29 +58,14 @@ export class NotesPage {
   ionViewDidLoad() { }
 
   //mostrar radio colors
-  public selectColor() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Cor da Nota');
+  public selectColor(): void {
+    this.modalColor = !this.modalColor;
+  }
 
-    this.colors.forEach(element => {
-      alert.addInput({
-        type: 'radio',
-        label: element.label,
-        value: element.value,
-        checked: false
-      });
-    });
-
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'OK',
-      handler: data => {
-        this.colorNote = data;
-        this.form.patchValue({ color: data });
-      }
-    });
-    alert.present();
+  public setColor(color): void {
+    this.form.patchValue({ color: color.value });
+    this.colorNote = color.value;
+    this.modalColor = false;
   }
 
   // toast message
@@ -111,11 +97,12 @@ export class NotesPage {
         this.form.patchValue({ date_created: this.date });
       }
       if (!this.form.value.color) {
-        this.form.patchValue({ color: 'dark' });
+        this.form.patchValue({ color: 'primary' });
       }
       this.form.patchValue({ date_edited: this.date });
       this.note = new NotesModel(
         this.form.value.id,
+        this.form.value.title.charAt(0).toUpperCase(),
         this.form.value.title,
         this.form.value.content,
         this.form.value.color,

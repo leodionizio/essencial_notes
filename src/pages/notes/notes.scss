@@ -1,3 +1,40 @@
 page-notes {
-
+    #modal-select::before {
+        content: "";
+        position: absolute;
+        right: -9px;
+        top: -10px;
+        margin-right: 10px;
+        width: 0px;
+        height: 0px;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-bottom: 12px solid #fff;
+    }
+    #modal {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 1050;
+        background: rgba(150, 150, 150, 0.4);
+        #modal-select {
+            border-radius: 3px; // border: 1px solid #999;
+            box-shadow: 1px 3px 6px #999;
+            background: #fff;
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            padding: 8px;
+            width: 260px;
+            z-index: 1050;
+            button {
+                margin: 15px !important;
+                width: 50px !important;
+                height: 50px !important;
+                border-radius: 100%;
+            }
+        }
+    }
 }

@@ -13,17 +13,19 @@
 </ion-header>
 
 <ion-content>
+  <div id="modal" *ngIf="modalColor" (click)="selectColor()">
+    <div id="modal-select">
+      <button *ngFor="let color of colors" ion-button [color]="color.value" (click)="setColor(color)"></button>
+    </div>
+  </div>
+
   <form (ngSubmit)="salvarNota()" [formGroup]="form">
 
     <ion-list padding>
 
-      <ion-item>
-        <ion-input type="text" placeholder="Título" maxlength="35" formControlName="title"></ion-input>
-      </ion-item>
+      <input type="text" placeholder="Título" maxlength="15" formControlName="title">
 
-      <ion-item>
-        <ion-textarea type="text" placeholder="Nota" rows="20" maxlength="600" formControlName="content"></ion-textarea>
-      </ion-item>
+      <textarea type="text" placeholder="Nota" rows="16" maxlength="600" formControlName="content"></textarea>
 
     </ion-list>
 
