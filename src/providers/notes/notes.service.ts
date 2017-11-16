@@ -29,6 +29,7 @@ export class NotesService {
             title TEXT,
             content TEXT,
             color TEXT,
+            archived INTEGER,
             date_created DATE,
             date_edited DATE
           )
@@ -45,7 +46,7 @@ export class NotesService {
     return this.sqliteConnService.getDb();
   }
 
-  public getAll(orderBy?: string): Promise<NotesModel[]> {
+  public getAll(archived?:number, orderBy?: string): Promise<NotesModel[]> {
     return this.getDb()
       .then((db: SQLiteObject) => {
 
@@ -56,9 +57,11 @@ export class NotesService {
           title,
           content,
           color,
+          archived,
           date_created,
           date_edited
           FROM notes
+          WHERE archived = ${archived || 0}
           ORDER BY date_edited ${orderBy || 'DESC'}
         `, {})
           .then((resultSet) => {
@@ -95,12 +98,13 @@ export class NotesService {
   public create(note: NotesModel): Promise<NotesModel> {
     return this.db.executeSql(`
         INSERT INTO notes
-        (key, title, content, color, date_created, date_edited) VALUES (?,?,?,?,?,?)
+        (key, title, content, color, archived, date_created, date_edited) VALUES (?,?,?,?,?,?,?)
       `, [
         note.key,
         note.title,
         note.content,
         note.color,
+        note.archived,
         note.date_created,
         note.date_edited
       ])
@@ -116,13 +120,14 @@ export class NotesService {
 
   public update(note: NotesModel): Promise<boolean> {
     return this.db.executeSql(`
-      UPDATE notes SET key = ?, title = ?, content = ?, color = ?, date_edited = ?
+      UPDATE notes SET key = ?, title = ?, content = ?, color = ?, archived = ?, date_edited = ?
       WHERE id=?
       `   , [
         note.key,
         note.title,
         note.content,
         note.color,
+        note.archived,
         note.date_edited,
         note.id
       ])
@@ -145,7 +150,8 @@ export class NotesService {
 
   public getById(id: number): Promise<NotesModel> {
     return this.db.executeSql(`
-      SELECT id, key, title, content, color, date_created, date_edited FROM notes WHERE id=?
+      SELECT id, key, title, content, color, archived, date_created, date_edited
+      FROM notes WHERE id=?
     `, [
         id
       ])
