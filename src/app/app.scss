@@ -25,6 +25,10 @@
     &::placeholder {
         color: #999;
     }
+    &:read-only {
+        color: #888;
+        background: #f0f0f0;
+    }
 }
 
 input {
@@ -36,4 +40,8 @@ textarea {
     @extend %input-property;
     margin-top: 5px;
     font-size: 1.3em;
+}
+
+ion-navbar {
+    height: 65px;
 }

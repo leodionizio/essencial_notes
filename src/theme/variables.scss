@@ -1,5 +1,6 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
+@import url('https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display');
 
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
@@ -22,6 +23,7 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
+$font-logo: 'Sedgwick Ave Display', cursive;
 
 
 
@@ -34,8 +36,8 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #006666,
-  secondary:  #1ab2ff,
+  primary:    #0099ff,
+  secondary:  #99d6ff,
   success:    #158a53,
   danger:     #f53d3d,
   warning:    #ffcc00,
