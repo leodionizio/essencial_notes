@@ -45,6 +45,7 @@ export class NotesPage {
       title: ['', [Validators.required]],
       content: [''],
       color: [''],
+      archived: [0],
       date_created: [''],
       date_edited: ['']
     })
@@ -87,7 +88,21 @@ export class NotesPage {
     this.loading.present();
   }
 
-  public salvarNota(): void {
+  private createNote(): void {
+    this.note = new NotesModel(
+      this.form.value.id,
+      this.form.value.title.charAt(0).toUpperCase(),
+      this.form.value.title,
+      this.form.value.content,
+      this.form.value.color,
+      this.form.value.archived,
+      this.form.value.date_created,
+      this.form.value.date_edited,
+    );
+  }
+
+  // função para salvar as informações da nota no sqlite
+  public saveNote(): void {
     this.presentLoading('Salvando Nota...');
     if (!this.form.valid) {
       this.loading.dismiss();
@@ -100,15 +115,7 @@ export class NotesPage {
         this.form.patchValue({ color: 'primary' });
       }
       this.form.patchValue({ date_edited: this.date });
-      this.note = new NotesModel(
-        this.form.value.id,
-        this.form.value.title.charAt(0).toUpperCase(),
-        this.form.value.title,
-        this.form.value.content,
-        this.form.value.color,
-        this.form.value.date_created,
-        this.form.value.date_edited,
-      );
+      this.createNote();
       this.notesService.onSave(this.note)
         .then((result: any) => {
           this.loading.dismiss();
@@ -121,7 +128,8 @@ export class NotesPage {
     }
   }
 
-  public deletarNota(): void {
+  // função para deletar a nota selecionada
+  public deleteNote(): void {
     this.presentLoading('Deletando Nota...');
     if (this.form.value.id) {
       this.notesService.delete(this.note.id)
@@ -132,6 +140,31 @@ export class NotesPage {
         .catch((error: Error) => {
           this.loading.dismiss();
           this.presentToast('Falha ao deletar a nota')
+        })
+    } else {
+      this.loading.dismiss();
+      this.navCtrl.pop();
+    }
+  }
+
+  // função para arquivar a nota selecionada
+  public archiveNote(): void {
+    this.presentLoading('Aguarde...');
+    if (this.form.value.id) {
+      this.createNote();
+      if(this.note.archived === 1) {
+        this.note.archived = 0;
+      } else {
+        this.note.archived = 1;
+      }
+      this.notesService.update(this.note)
+        .then((result: any) => {
+          this.loading.dismiss();
+          this.navCtrl.pop();
+        })
+        .catch((error: Error) => {
+          this.loading.dismiss();
+          this.presentToast('Falha ao arquivar/desarquivar a nota')
         })
     } else {
       this.loading.dismiss();

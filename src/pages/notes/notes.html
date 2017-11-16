@@ -1,11 +1,15 @@
 <ion-header>
   <ion-navbar [color]="colorNote" padding>
     <ion-buttons end>
-      <button ion-button icon-only (click)="deletarNota()">
+      <button ion-button icon-only (click)="deleteNote()">
         <ion-icon name="trash"></ion-icon>
       </button>
       &emsp;
-      <button ion-button icon-only (click)="selectColor()">
+      <button ion-button icon-only (click)="archiveNote()">
+        <ion-icon name="md-archive"></ion-icon>
+      </button>
+      &emsp;
+      <button [disabled]="note && note.archived !== 1" ion-button icon-only (click)="selectColor()">
         <ion-icon name="color-palette"></ion-icon>
       </button>
     </ion-buttons>
@@ -19,17 +23,17 @@
     </div>
   </div>
 
-  <form (ngSubmit)="salvarNota()" [formGroup]="form">
+  <form (ngSubmit)="saveNote()" [formGroup]="form">
 
     <ion-list padding>
 
-      <input type="text" placeholder="Título" maxlength="15" formControlName="title">
+      <input [readonly]="form.value.archived === 1" type="text" placeholder="Título" maxlength="15" formControlName="title">
 
-      <textarea type="text" placeholder="Nota" rows="16" maxlength="600" formControlName="content"></textarea>
+      <textarea [readonly]="form.value.archived === 1" type="text" placeholder="Nota" rows="16" maxlength="600" formControlName="content"></textarea>
 
     </ion-list>
 
-    <button type="submit" [color]="colorNote" ion-button icon-only full style="position: fixed; bottom: 0; padding: 0; margin: 0; border: none">
+    <button [disabled]="form.value.archived === 1" type="submit" [color]="colorNote" ion-button icon-only full style="position: fixed; bottom: 0; padding: 0; margin: 0; border: none">
       <ion-icon name="checkmark"></ion-icon>
     </button>
   </form>
