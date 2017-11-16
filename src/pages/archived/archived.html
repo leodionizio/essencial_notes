@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar color="primary" padding>
+    <ion-title padding-top>
+      <h4>Arquivados</h4>
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar (ionInput)="filterItems($event)" placeholder="Buscar..." mode="md"></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <!-- NOTAS -->
+  <div *ngIf="notes && notes.length === 0; else notesList" text-center style="color: #929292">
+    <br>
+    <h6>Nenhuma nota.</h6>
+  </div>
+
+  <ng-template #notesList id="notesList">
+    <ion-list>
+      <div *ngFor="let note of notes">
+        <button (click)="viewNote(note)" class="item-home" ion-item no-lines full>
+          <button ion-button item-start [color]="note.color">
+            <h1>{{ note.key }}</h1>
+          </button>
+          <h2 padding-left>{{ note.title }}</h2>
+        </button>
+      </div>
+    </ion-list>
+  </ng-template>
+</ion-content>
