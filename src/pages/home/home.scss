@@ -1,15 +1,25 @@
 page-home {
+    ion-title {
+        h2 {
+            color: #fff !important;
+            font-family: $font-logo;
+        }
+    }
     .btn-new {
-        position: absolute;
+        position: fixed;
         right: 20px;
         bottom: 20px;
         font-size: 20px;
         z-index: 1050
     }
+    #notesList {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
     .item-home {
         padding: 15px 20px;
         color: #777;
-        box-shadow: 1px 1px 5px #888;
+        box-shadow: 1px 1px 10px #888;
         &:hover {
             background-color: #f8f8f8;
         }
@@ -19,11 +29,5 @@ page-home {
             height: 50px !important;
             border-radius: 100%;
         }
-    }
-    .clip-note {
-        font-size: 40px;
-    }
-    ion-navbar {
-        height: 65px;
     }
 }

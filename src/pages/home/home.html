@@ -1,16 +1,23 @@
 <ion-header>
-  <ion-navbar color="primary" padding>
+  <ion-navbar color="primary" padding mode="md">
     <ion-title padding-top>
       <h2>Essencial Notes</h2>
     </ion-title>
 
-    <!-- <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="more"></ion-icon>
+    <ion-buttons end>
+      <!-- <button ion-button icon-only>
+        <ion-icon name="md-list"></ion-icon>
+      </button>&emsp; -->
+      <button ion-button icon-only (click)="viewArchived()">
+        <ion-icon name="md-archive"></ion-icon>
       </button>
-    </ion-buttons> -->
+    </ion-buttons>
   </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar (ionInput)="filterItems($event)" placeholder="Buscar..." mode="md"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
 
@@ -22,7 +29,7 @@
   <!-- NOTAS -->
   <div *ngIf="notes && notes.length === 0; else notesList" text-center style="color: #929292">
     <br>
-    <h6>Nenhuma nota ainda.</h6>
+    <h6>Nenhuma nota.</h6>
   </div>
 
   <ng-template #notesList id="notesList">
