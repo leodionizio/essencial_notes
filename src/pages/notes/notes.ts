@@ -16,12 +16,16 @@ export class NotesPage {
   public colorNote: string = 'primary';
   public colors: [{ value: string, label: string }] = [
     { value: 'warning', label: 'Amarelo' },
-    { value: 'secondary', label: 'Azul' },
+    { value: 'secondary', label: 'Azul Claro' },
     { value: 'dark', label: 'Cinza' },
     { value: 'brown', label: 'Marrom' },
     { value: 'pink', label: 'Rosa' },
     { value: 'purple', label: 'Roxo' },
     { value: 'success', label: 'Verde' },
+    { value: 'orange', label: 'Laranja' },
+    { value: 'lightgreen', label: 'Verde Claro' },
+    { value: 'blue', label: 'Azul' },
+    { value: 'blueice', label: 'Azul Agua' },
     { value: 'danger', label: 'Vermelho' }
   ]
   public modalColor: boolean = false;
@@ -83,6 +87,7 @@ export class NotesPage {
   // exibir loading
   public presentLoading(message: string): void {
     this.loading = this.loadingCtrl.create({
+      spinner: 'circles',
       content: message
     });
     this.loading.present();
@@ -152,7 +157,7 @@ export class NotesPage {
     this.presentLoading('Aguarde...');
     if (this.form.value.id) {
       this.createNote();
-      if(this.note.archived === 1) {
+      if (this.note.archived === 1) {
         this.note.archived = 0;
       } else {
         this.note.archived = 1;

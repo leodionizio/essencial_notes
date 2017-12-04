@@ -5,11 +5,16 @@
         <ion-icon name="trash"></ion-icon>
       </button>
       &emsp;
-      <button ion-button icon-only (click)="archiveNote()">
-        <ion-icon name="md-archive"></ion-icon>
+      <button *ngIf="note && note.archived === 1; else archive" ion-button icon-only (click)="archiveNote()">
+        <ion-icon name="ios-undo"></ion-icon>
       </button>
+      <ng-template #archive>
+        <button [disabled]="!note" ion-button icon-only (click)="archiveNote()">
+          <ion-icon name="md-archive"></ion-icon>
+        </button>
+      </ng-template>
       &emsp;
-      <button [disabled]="note && note.archived !== 1" ion-button icon-only (click)="selectColor()">
+      <button [disabled]="note && note.archived === 1" ion-button icon-only (click)="selectColor()">
         <ion-icon name="color-palette"></ion-icon>
       </button>
     </ion-buttons>
@@ -27,7 +32,7 @@
 
     <ion-list padding>
 
-      <input [readonly]="form.value.archived === 1" type="text" placeholder="Título" maxlength="15" formControlName="title">
+      <input [readonly]="form.value.archived === 1" type="text" placeholder="Título" maxlength="30" formControlName="title">
 
       <textarea [readonly]="form.value.archived === 1" type="text" placeholder="Nota" rows="16" maxlength="600" formControlName="content"></textarea>
 

@@ -12,10 +12,10 @@ page-notes {
         border-bottom: 12px solid #fff;
     }
     #modal {
-        position: absolute;
+        position: fixed;
         width: 100vw;
         height: 100vh;
-        top: 0;
+        top: 65px;
         left: 0;
         z-index: 1050;
         background: rgba(150, 150, 150, 0.4);
