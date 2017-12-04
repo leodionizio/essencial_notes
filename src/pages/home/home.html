@@ -1,18 +1,20 @@
 <ion-header>
+
   <ion-navbar color="primary" padding mode="md">
     <ion-title padding-top>
       <h2>Essencial Notes</h2>
     </ion-title>
 
     <ion-buttons end>
-      <!-- <button ion-button icon-only>
-        <ion-icon name="md-list"></ion-icon>
-      </button>&emsp; -->
+      <button ion-button icon-only (click)="orderBy()">
+        <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+      </button>&emsp;
       <button ion-button icon-only (click)="viewArchived()">
         <ion-icon name="md-archive"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
+
   <ion-toolbar color="primary">
     <ion-searchbar (ionInput)="filterItems($event)" placeholder="Buscar..." mode="md"></ion-searchbar>
   </ion-toolbar>
@@ -22,26 +24,23 @@
 <ion-content>
 
   <!-- BOTÃO INSERIR NOVA NOTA -->
-  <button ion-button icon-only (click)="viewNote()" class="btn-new" round>
+  <button ion-button icon-only (click)="viewNote()" class="btn-new" round color="success">
     <ion-icon name="add"></ion-icon>
   </button>
 
-  <!-- NOTAS -->
-  <div *ngIf="notes && notes.length === 0; else notesList" text-center style="color: #929292">
-    <br>
-    <h6>Nenhuma nota.</h6>
+  <div class="icon-background" align="center">
+    <ion-icon name="md-home"></ion-icon>
   </div>
 
-  <ng-template #notesList id="notesList">
-    <ion-list>
-      <div *ngFor="let note of notes">
-        <button (click)="viewNote(note)" class="item-home" ion-item no-lines full>
-          <button ion-button item-start [color]="note.color">
-            <h1>{{ note.key }}</h1>
-          </button>
-          <h2 padding-left>{{ note.title }}</h2>
+  <ion-list id="notes-list">
+    <div *ngFor="let note of notes">
+      <button (click)="viewNote(note)" class="item-home" ion-item no-lines full>
+        <button ion-button item-start [color]="note.color">
+          <h1>{{ note.key }}</h1>
         </button>
-      </div>
-    </ion-list>
-  </ng-template>
+        <h2 padding-left>{{ note.title }}</h2>
+      </button>
+    </div>
+  </ion-list>
+
 </ion-content>

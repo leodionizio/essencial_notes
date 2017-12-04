@@ -1,6 +1,6 @@
 import { NotesService } from './../../providers/notes/notes.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { NotesModel } from '../../models/notes.model';
 
 @IonicPage()
@@ -14,7 +14,13 @@ export class ArchivedPage {
   public allNotes: NotesModel[] = [];
   private loading: any;
 
+  // 0 - data edição
+  // 1 - data criação
+  // 2 - alfabética
+  public typeOrder: number = 0;
+
   constructor(
+    public alertCtrl: AlertController,    
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -25,6 +31,10 @@ export class ArchivedPage {
   ionViewWillEnter() {
     this.notes = [];
     this.getNotes();
+  }
+
+  ionViewDidLoad() {
+    window.scrollTo(0, 0);
   }
 
   // toast message
@@ -41,6 +51,7 @@ export class ArchivedPage {
   // exibir loading
   public presentLoading(message: string): void {
     this.loading = this.loadingCtrl.create({
+      spinner: 'circles',
       content: message
     });
     this.loading.present();
@@ -79,6 +90,69 @@ export class ArchivedPage {
 
   public viewNote(note: NotesModel): void {
     this.navCtrl.push('NotesPage', { note });
+  }
+
+  public viewHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
+
+  public orderBy() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Ordenar por:');
+    alert.setCssClass('alert')
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Data de Edição',
+      value: 'dateEdited',
+      checked: this.typeOrder === 0 ? true : false
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Data de Criação',
+      value: 'dateCreated',
+      checked: this.typeOrder === 1 ? true : false
+    });
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Ordem Alfabética',
+      value: 'alphabetical',
+      checked: this.typeOrder === 2 ? true : false
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'OK',
+      handler: data => {
+        if (data === 'dateEdited') {
+
+          this.notes.sort((a, b) => {
+            if (a.date_edited < b.date_edited) return -1;
+            if (a.date_edited > b.date_edited) return 1;
+            return 0;
+          })
+
+        } else if (data === 'dateCreated') {
+
+          this.notes.sort((a, b) => {
+            if (a.date_created < b.date_created) return -1;
+            if (a.date_created > b.date_created) return 1;
+            return 0;
+          })
+
+        } else if (data === 'alphabetical') {
+
+          this.notes.sort((a, b) => {
+            if (a.key.toLowerCase() < b.key.toLowerCase()) return -1;
+            if (a.key.toLowerCase() > b.key.toLowerCase()) return 1;
+            return 0;
+          })
+        }
+      }
+    });
+    alert.present();
   }
 
 }
