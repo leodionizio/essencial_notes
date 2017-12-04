@@ -1,8 +1,18 @@
 page-home {
+    div.icon-background {
+        position: fixed;
+        z-index: 1;
+        top: 35%;
+        left: 0;
+        width: 100%;
+        color: #e9e9e9;
+        font-size: 18rem;
+    }
     ion-title {
         h2 {
             color: #fff !important;
             font-family: $font-logo;
+            font-weight: bold;
         }
     }
     .btn-new {
@@ -10,16 +20,22 @@ page-home {
         right: 20px;
         bottom: 20px;
         font-size: 20px;
-        z-index: 1050
+        z-index: 1050;
     }
-    #notesList {
+    #notes-list {
+        position: fixed;
+        top: 120px;
+        left: 0;
+        bottom: -30px;
+        width: 100%;
         overflow-y: scroll;
-        overflow-x: hidden;
+        z-index: 1020;
     }
     .item-home {
         padding: 15px 20px;
         color: #777;
-        box-shadow: 1px 1px 10px #888;
+        box-shadow: 1px 1px 10px #cecece;
+        z-index: 10;
         &:hover {
             background-color: #f8f8f8;
         }
@@ -29,5 +45,10 @@ page-home {
             height: 50px !important;
             border-radius: 100%;
         }
+    }
+    .fa-sort-amount-asc {
+        margin: 0 4px;
+        font-size: 20px;
+        font-weight: bold;
     }
 }
